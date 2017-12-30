@@ -78,7 +78,7 @@ deploy:
   upload-dir: travis-builds/$TRAVIS_JOB_NUMBER-$BUILD_TYPE
   local_dir: tar
   on:
-    all_branches: true  
+    all_branches: true
 
 after_deploy:
 - echo "After deploy"
@@ -93,3 +93,9 @@ addons:
     bucket: travis.icon
     key: $AWS_ACCESS_KEY_ID
     secret: $AWS_SECRET_ACCESS_KEY
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+  slack: $SLACK_HOOK

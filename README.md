@@ -36,3 +36,4 @@ Travis needs a few secrets set on the build:
 - **HOCKEYAPP_TOKEN** - Hockeyapp upload-enabled API token
 - **P12_PASSWORD** - P12 files password to import into keychain
 - **OPENSSL_ENCRYPT_PASS** - password to decrypt P12 and mobileprovision files using openssl
+

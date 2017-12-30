@@ -5,7 +5,7 @@ KEY_CHAIN=ios-build.keychain
 build_keychain() {
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
   echo "No keys needed on linux"
-  exit 0
+  return
 fi
 if [ -z "$P12_PASSWORD" ]; then
   echo "Error: Missing password for adding P12s"

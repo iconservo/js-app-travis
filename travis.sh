@@ -30,4 +30,7 @@ cp -v build/config.xml build/package.json build/ionic.config.json build/package-
 #build products
 cp -v build/*.ipa build/*.apk build_artifacts
 tar cvzf build_artifacts/ipa.travis-$TRAVIS_JOB_NUMBER-job.tgz build/*.ipa build/*.apk
+
+# finally nuke the bare build dir, takes forever to upload
+rm -rf build/
 }

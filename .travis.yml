@@ -89,4 +89,6 @@ notifications:
   email:
     on_success: never
     on_failure: always
-  slack: $SLACK_HOOK
+  slack:
+    room:
+      secure: UUWKGyYmbtAMOKl9lfW+j0rX9NrUoltzPI/l78SywsEvOZi9HZf+RXdpO5ad+mVrZmAIyGJEBh6GKkcSj2DPfkj2yf71sleKhpO1WQ+F/okG0XWUYLPDUbaei607gWYik1J8HM6BX4Y55dVljWRhqFfL9jRC5ZAYibYWeahPpOEe1wbbLYlhKyXdXUldX7KUCj7OR4s5i/9+Olw9WQJx22pGtCejsAPmFIN2KvdQMp79KKImwi/YUMcSdWsUxf1LGow2gPk8mCY3/YNUG7mbMX05flImkDfoU4171XmB7Gc29SLMFbDFcFDqliJKPgZ9fhTfl3AEGTJSX2gtYcbWIY0l1LdctQWnHBxrY9VnUtCJhUbaJ9Qit6LHpTG0ty9uPEkJhrdYHd36S3WlMIb4rtSfKuvzH1qRoNlzFhDlhPVPbZZopURYB5wDDaPnbaQqTjUXHdd8IimkMyeyowsf93KDAtNvvNohVkFs/IGn7ITjj3zoVywCxbdDXX2/CL+5xjtBgAWB0pmKDmiYqk+5TZZpkRUE/uoZLT6PEqXjTKX/zet3p4jP7M+ZoIFRlv+/3ywLLMRaVLkg/79vJmqDW+NYcEtPDC7ZkBbG7T199yKvRMFVTZXyJqTH1hQ9mYxZ53vS4Kuic0MUoSaNx1OHScgaYJ+NOChYkIhPYxJICTg=

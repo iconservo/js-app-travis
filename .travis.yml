@@ -1,0 +1,95 @@
+language: node_js
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.2
+      language: node_js
+      node_js: 6
+      env: CORDOVA=7 FULL_BUILD=0 BUILD_TYPE=ios
+    - os: linux
+      language: android
+      node_js: 8
+      env: CORDOVA=7 FULL_BUILD=1 BUILD_TYPE=android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-26
+    - os: osx
+      osx_image: xcode9.2
+      language: node_js
+      node_js: 8
+      env: CORDOVA=8 FULL_BUILD=1 BUILD_TYPE=ios
+
+before_install:
+- printenv
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  brew update > /dev/null;
+  gem install --no-rdoc --no-ri cocoapods;
+  fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+  uname -a;
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash;
+  source ~/.nvm/nvm-exec;
+  nvm --version;
+  nvm install 8;
+  fi
+
+install:
+- npm i -g ionic
+- npm i -g cordova@$CORDOVA
+
+script:
+- if [ "ios" = "$BUILD_TYPE" ]; then export BUILD_IOS=1 ; fi
+- if [ "android" = "$BUILD_TYPE" ]; then export BUILD_ANDROID=1 ; fi
+- npm --version
+- node --version
+- npm ls -g --depth=0
+- bash ./travis.sh
+
+after_failure:
+- mkdir -p tar
+- tar czf /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz $TRAVIS_BUILD_DIR
+- mv /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz tar
+- rm -rf build
+
+after_success:
+- mkdir -p tar
+- tar czf /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz $TRAVIS_BUILD_DIR
+- mv /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz tar
+- find . \( -name "*.ipa" -or -name "*.apk" \)
+- cp -v build/*.ipa build/*.apk tar
+- tar cvzf tar/ipa.travis-$TRAVIS_JOB_NUMBER-job.tgz build/*.ipa build/*.apk
+- rm -rf build
+
+before_deploy:
+- echo "Before dep"
+
+deploy:
+  provider: s3
+  region: us-west-1
+  bucket: travis.icon
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  skip_cleanup: true
+  acl: public_read
+  upload-dir: travis-builds/$TRAVIS_JOB_NUMBER-$BUILD_TYPE
+  local_dir: tar
+  on:
+    all_branches: true  
+
+after_deploy:
+- echo "After deploy"
+
+after_script:
+- security delete-keychain ios-build.keychain
+- rm -f ~/Library/Keychains/ios-build.*
+
+addons:
+  artifacts:
+    s3_region: us-west-1
+    bucket: travis.icon
+    key: $AWS_ACCESS_KEY_ID
+    secret: $AWS_SECRET_ACCESS_KEY

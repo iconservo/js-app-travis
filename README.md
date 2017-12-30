@@ -2,7 +2,6 @@
 
 Shell scripts to create a Ionic/Cordova app from scratch, add all common plugins, add platforms, and build iOS and Android each in development, distribution and release configuration.
 
-
 - _vars.sh_ - sets all required env vars to configure build and distribution
 - _keychain.sh_ - builds MacOS signing keychain from provided profile and certs file. Imports everything from _certs_ and _profile_ dirs
 - _build.sh_ - creates Ionic app skeleton, configures it, and triggers native builds

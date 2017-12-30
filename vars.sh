@@ -12,7 +12,7 @@ APP_VERSION="0.8.1"
 APP_AUTHOR="IConservo"
 APP_AUTHOR_EMAIL="admin@iconservo.com"
 APP_AUTHOR_URL="https://iconservo.com"
-APP_BUILD_NUMBER=42
+APP_BUILD_NUMBER=0
 
 CODESIGN_TEAM=825B9P53TJ
 CODESIGN_ID="iPhone Distribution: iConservo Inc. (825B9P53TJ)"

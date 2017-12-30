@@ -47,22 +47,13 @@ script:
 - npm --version
 - node --version
 - npm ls -g --depth=0
-- bash ./travis.sh
+- bash -c "source ./travis.sh && run_build"
 
 after_failure:
-- mkdir -p tar
-- tar czf /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz $TRAVIS_BUILD_DIR
-- mv /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz tar
-- rm -rf build
+- bash -c "source ./travis.sh && prepare_artifacts"
 
 after_success:
-- mkdir -p tar
-- tar czf /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz $TRAVIS_BUILD_DIR
-- mv /tmp/build.travis-$TRAVIS_JOB_NUMBER-job.tgz tar
-- find . \( -name "*.ipa" -or -name "*.apk" \)
-- cp -v build/*.ipa build/*.apk tar
-- tar cvzf tar/ipa.travis-$TRAVIS_JOB_NUMBER-job.tgz build/*.ipa build/*.apk
-- rm -rf build
+- bash -c "source ./travis.sh && prepare_artifacts"
 
 before_deploy:
 - echo "Before dep"
@@ -76,7 +67,7 @@ deploy:
   skip_cleanup: true
   acl: public_read
   upload-dir: travis-builds/$TRAVIS_JOB_NUMBER-$BUILD_TYPE
-  local_dir: tar
+  local_dir: build_artifacts
   on:
     all_branches: true
 

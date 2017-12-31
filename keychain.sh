@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 KEY_CHAIN=ios-build.keychain
-KEY_STORE=android.keystore
+KEY_STORE=certs/android.keystore
 KEY_PASS=travis
 
 if [ -z "$P12_PASSWORD" ]; then
@@ -46,9 +46,12 @@ egrep --text -A1 UUID ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprov
 }
 
 android_keystore() {
+  rm -f $KEY_STORE
   for i in certs/android_*.p12; do
     echo "Importing key:" $i
-    keytool -importkeystore -deststorepass $KEY_PASS -destkeystore $KEY_STORE -srckeystore $i -srcstoretype PKCS12 -srcstorepass $P12_PASSWORD
+    #keytool -importkeystore -deststorepass $KEY_PASS -destkeystore $KEY_STORE -srckeystore $i -srcstoretype PKCS12 -srcstorepass $P12_PASSWORD
+    keytool -importkeystore -deststorepass $KEY_PASS -destkeypass $KEY_PASS \
+      -destkeystore $KEY_STORE -srckeystore $i -srcstoretype PKCS12 -srcstorepass $P12_PASSWORD
   done
   keytool -list -keystore $KEY_STORE -storepass $KEY_PASS
 }

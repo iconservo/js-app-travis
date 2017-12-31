@@ -29,7 +29,7 @@ curl  -H "X-HockeyAppToken: $HOCKEYAPP_TOKEN" \
 }
 upload_android() {
 TARGET=app-release.apk
-if [ ! -s TARGET ]; then
+if [ ! -s $TARGET ]; then
   echo "Rel apk file doesnt exist:" $TARGET
   return
 fi

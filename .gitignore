@@ -1,2 +1,4 @@
-grostub
+certs/*.p12
+certs/*.keystore
+profile/*.mobileprovision
 

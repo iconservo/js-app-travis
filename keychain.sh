@@ -26,7 +26,7 @@ for i in certs/*.cer; do
   echo "Importing cert:" $i
   security import $i -k $KEY_CHAIN -T /usr/bin/codesign
 done
-for i in certs/*.p12; do
+for i in certs/ios_*.p12; do
   echo "Importing key:" $i
   # hide password
   { set +x; } 2>/dev/null

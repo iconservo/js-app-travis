@@ -26,7 +26,6 @@ curl  -H "X-HockeyAppToken: $HOCKEYAPP_TOKEN" \
   -F notes_type=0 \
   -F strategy=replace \
   -F "ipa=@$TARGET" \
-  -F tags=ci \
   https://rink.hockeyapp.net/api/2/apps/$HOCKEY_APP_ID_IOS/app_versions/upload
 set +x
 }
@@ -44,7 +43,6 @@ curl  -H "X-HockeyAppToken: $HOCKEYAPP_TOKEN" \
   -F notes_type=0 \
   -F strategy=replace \
   -F "ipa=@$TARGET" \
-  -F tags=ci \
   https://rink.hockeyapp.net/api/2/apps/$HOCKEY_APP_ID_ANDROID/app_versions/upload
 set +x
 }

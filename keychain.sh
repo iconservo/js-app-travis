@@ -44,6 +44,7 @@ egrep --text -A1 UUID ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprov
 
 encrypt_files() {
   for i in certs/*.p12 profile/*.mobileprovision ; do
+    echo "Encrypting "  ${i}
     openssl aes-256-cbc -salt -a -e -pass pass:$OPENSSL_ENCRYPT_PASS -in $i -out $i.enc
   done
 }

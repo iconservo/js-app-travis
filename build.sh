@@ -130,7 +130,8 @@ build_ios_adhoc() {
 build_android_dev(){
   ionic cordova build android --device --aot \
     --debug \
-    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false
+    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false \
+    --keystore="../android.keystore" --storePassword=travis --alias=androiddebugkey
   cp ./platforms/android/build/outputs/apk/android-debug.apk android-debug.apk
 }
 build_android_prod(){
@@ -138,7 +139,7 @@ build_android_prod(){
     --prod --optimizejs --minifyjs \
     --release \
     -- -d -- --gradleArg=-PcdvBuildMultipleApks=false \
-    --keystore="../certs/filename.keystore" --storePassword=password --alias=alias_name
+    --keystore="../android.keystore" --storePassword=travis --alias=prod.key
   cp ./platforms/android/build/outputs/apk/android-release-unsigned.apk android-release-unsigned.apk
 }
 run_full_build() {

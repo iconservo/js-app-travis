@@ -12,6 +12,7 @@ source upload.sh
 run_build() {
 decrypt_files
 build_keychain
+android_keystore
 main_build
 
 upload_ios

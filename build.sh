@@ -130,18 +130,19 @@ build_ios_adhoc() {
 build_android_dev(){
   ionic cordova build android --device --aot \
     --debug \
-    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false \
-    --keystore=../certs/android.keystore --storePassword=travis --keypassword=travis  --alias=androiddebugkey \
-    --gradleArg=-debug --gradleArg=-stacktrace -- --stracktrace
-  cp ./platforms/android/build/outputs/apk/android-debug.apk android-debug.apk
+    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false --gradleArg=-PcdvMinSdkVersion=android-14 \
+    --alias=androiddebugkey --password=travis --storePassword=travis \
+    --keystore=../certs/android.keystore --keystoreType=jks #--gradleArg=-debug
+  cp -v ./platforms/android/app/build/outputs/apk/debug/app-debug.apk app-debug.apk
 }
 build_android_prod(){
   ionic cordova build android --device --aot \
     --prod --optimizejs --minifyjs \
     --release \
-    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false \
-    --keystore=../certs/android.keystore --storePassword=android --alias=prod.key
-  cp ./platforms/android/build/outputs/apk/android-release-unsigned.apk android-release-unsigned.apk
+    -- -d -- --gradleArg=-PcdvBuildMultipleApks=false --gradleArg=-PcdvMinSdkVersion=android-14 \
+    --alias=prod.key --password=travis --storePassword=travis \
+    --keystore=../certs/android.keystore --keystoreType=jks #--gradleArg=-debug
+  cp -v platforms/android/app/build/outputs/apk/release/app-release.apk app-release.apk
 }
 run_full_build() {
   time boot_project
